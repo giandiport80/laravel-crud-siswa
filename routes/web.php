@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/siswa', 'SiswaController@index')->name('siswa.index');
+Route::post('/siswa', 'SiswaController@store')->name('siswa.store');
+Route::get('/siswa/{siswa}/edit', 'SiswaController@edit')->name('siswa.edit');
+Route::patch('/siswa/{siswa}', 'SiswaController@update')->name('siswa.update');
+Route::delete('/siswa/{siswa}', 'SiswaController@destroy')->name('siswa.destroy');
