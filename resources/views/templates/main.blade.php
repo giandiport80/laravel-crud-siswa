@@ -28,6 +28,14 @@
   </nav>
 
   <div class="container mt-3">
+    <form action="{{ route('siswa.index') }}">
+      <div class="input-group mb-3">
+        <input type="text" name="cari" class="form-control" placeholder="Cari Data Siswa">
+        <div class="input-group-append">
+          <button class="btn btn-outline-info" type="button" id="button-addon2">Cari Siswa</button>
+        </div>
+      </div>
+    </form>
     @yield('content')
   </div>
 
