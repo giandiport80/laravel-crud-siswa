@@ -83,6 +83,11 @@
           </div>
 
           <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" id="email">
+          </div>
+
+          <div class="form-group">
             <label for="jenis_kelamin">Jenis Kelamin</label>
             <select name="jenis_kelamin" class="form-control" id="jenis_kelamin">
               <option value="L">Laki-laki</option>

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Siswa;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SiswaController extends Controller
 {
@@ -25,8 +27,22 @@ class SiswaController extends Controller
             'nama_belakang' => 'required|min:3',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'alamat' => 'required|min:3'
+            'alamat' => 'required|min:3',
+            'email' => 'required|email'
         ]);
+
+        // buat user baru dari siswa ini
+        $user = new User;
+        $user->role = 'siswa';
+        $user->name = $request->nama_depan;
+        $user->email = $request->email;
+        $user->password = bcrypt('password');
+        $user->remember_token = Str::random(60);
+
+        $user->save();
+
+        // tambah user_id
+        $request->request->add(['user_id' => $user->id]);
 
         $siswa = Siswa::create($request->all());
 
@@ -39,7 +55,6 @@ class SiswaController extends Controller
             $siswa->gambar = $namaGambar;
             $siswa->save();
         }
-
 
         return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil ditambahkan!');
     }
