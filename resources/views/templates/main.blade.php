@@ -1,53 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>@yield('title')</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <title>Laravel | Crud Siswa</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <!-- VENDOR CSS -->
+  <link rel="stylesheet" href="{{ asset('admin/assets/vendor/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/assets/vendor/linearicons/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('admin/assets/vendor/chartist/css/chartist-custom.css') }}">
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="{{ asset('admin/assets/css/main.css') }}">
+  <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+  <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}">
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+  <!-- ICONS -->
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('admin/assets/img/apple-icon.png') }}">
+  <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('admin/assets/img/favicon.png') }}">
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="{{ route('siswa.index') }}">Siswa</a>
+  <!-- WRAPPER -->
+  <div id="wrapper">
+    <!-- NAVBAR -->
+    @include('templates.navbar')
+    <!-- END NAVBAR -->
+
+    <!-- LEFT SIDEBAR -->
+    @include('templates.sidebar')
+    <!-- END LEFT SIDEBAR -->
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="main-content">
+        <div class="container-fluid">
+          @yield('content')
         </div>
       </div>
     </div>
-  </nav>
+    <!-- END MAIN -->
 
-  <div class="container mt-3">
-    <form action="{{ route('siswa.index') }}">
-      <div class="input-group mb-3">
-        <input type="text" name="cari" class="form-control" placeholder="Cari Data Siswa">
-        <div class="input-group-append">
-          <button class="btn btn-outline-info" type="button" id="button-addon2">Cari Siswa</button>
-        </div>
+    <div class="clearfix"></div>
+    <footer>
+      <div class="container-fluid">
+        <p class="copyright">Shared by <i class="fa fa-love"></i><a
+            href="https://github.com/giannurwana19">Gian Nurwana</a>
+        </p>
       </div>
-    </form>
-    @yield('content')
+    </footer>
   </div>
+  <!-- END WRAPPER -->
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
-  </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
-  </script>
-</body>
-
-</html>
+  @include('templates.footer')

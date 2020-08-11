@@ -10,50 +10,55 @@
   </button>
 </div>
 @endif
-<div class="row">
-  <div class="col-md-6">
-    <h1>Data Siswa</h1>
+
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">Data Siswa</h3>
+    <div class="right">
+      <button type="button" class="" data-toggle="modal" data-target="#exampleModal" title="Tambah data Siswa">
+        <i class="lnr lnr-plus-circle"></i>
+      </button>
+    </div>
   </div>
-  <div class="col-md-6">
-    <button type="button" class="btn btn-primary btn-sm my-3 float-right" data-toggle="modal"
-      data-target="#exampleModal" title="Tambah data Siswa">
-      + Tambah
-    </button>
+  <div class="panel-body">
+
+    <table class="table table-bordered table-hover">
+      <thead class="text-center bg-info text-white">
+        <th>No</th>
+        <th>Nama Depan</th>
+        <th>Nama Belakang</th>
+        <th>Jenis Kelamin</th>
+        <th>Agama</th>
+        <th>Alamat</th>
+        <th>Aksi</th>
+      </thead>
+      <tbody>
+        @foreach ($siswa as $sw)
+        <tr>
+          <td>{{ $loop->iteration }}</td>
+          <td>{{ $sw->nama_depan }}</td>
+          <td>{{ $sw->nama_belakang }}</td>
+          <td>{{ $sw->jenis_kelamin }}</td>
+          <td>{{ $sw->agama }}</td>
+          <td>{{ $sw->alamat }}</td>
+          <td>
+            <form action="{{ route('siswa.destroy', $sw->id) }}" method="POST">
+              @csrf
+              @method('DELETE')
+
+              <a href="/siswa/{{ $sw->id }}/edit" class="btn btn-success btn-sm" title="Edit data siswa">Edit</a>
+              <button type="submit" onclick="return confirm('yakin hapus {{ $sw->nama_depan }}?')"
+                class="btn btn-danger btn-sm" title="Hapus data siswa">Hapus</button>
+            </form>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
   </div>
 </div>
-<table class="table table-bordered table-hover">
-  <thead class="text-center bg-info text-white">
-    <th>No</th>
-    <th>Nama Depan</th>
-    <th>Nama Belakang</th>
-    <th>Jenis Kelamin</th>
-    <th>Agama</th>
-    <th>Alamat</th>
-    <th>Aksi</th>
-  </thead>
-  <tbody>
-    @foreach ($siswa as $sw)
-    <tr>
-      <td>{{ $loop->iteration }}</td>
-      <td>{{ $sw->nama_depan }}</td>
-      <td>{{ $sw->nama_belakang }}</td>
-      <td>{{ $sw->jenis_kelamin }}</td>
-      <td>{{ $sw->agama }}</td>
-      <td>{{ $sw->alamat }}</td>
-      <td>
-        <form action="{{ route('siswa.destroy', $sw->id) }}" method="POST">
-          @csrf
-          @method('DELETE')
 
-          <a href="/siswa/{{ $sw->id }}/edit" class="btn btn-success btn-sm" title="Edit data siswa">Edit</a>
-          <button type="submit" onclick="return confirm('yakin hapus {{ $sw->nama_depan }}?')"
-            class="btn btn-danger btn-sm" title="Hapus data siswa">Hapus</button>
-        </form>
-      </td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+
 
 
 <!-- Modal -->
