@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('/siswa', 'SiswaController@index')->name('siswa.index');
     Route::post('/siswa', 'SiswaController@store')->name('siswa.store');
+    Route::get('/siswa/{siswa}', 'SiswaController@show')->name('siswa.show');
     Route::get('/siswa/{siswa}/edit', 'SiswaController@edit')->name('siswa.edit');
     Route::patch('/siswa/{siswa}', 'SiswaController@update')->name('siswa.update');
     Route::delete('/siswa/{siswa}', 'SiswaController@destroy')->name('siswa.destroy');

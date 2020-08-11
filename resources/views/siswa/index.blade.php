@@ -2,14 +2,6 @@
 @section('title', 'Laravel Crud Siswa')
 
 @section('content')
-@if (session('pesan'))
-<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-  <strong>{{ session('pesan') }}</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-@endif
 
 <div class="panel">
   <div class="panel-heading">
@@ -21,6 +13,11 @@
     </div>
   </div>
   <div class="panel-body">
+    @if (session('pesan'))
+    <div class="alert alert-success">
+      <strong>{{ session('pesan') }}</strong>
+    </div>
+    @endif
 
     <table class="table table-bordered table-hover">
       <thead class="text-center bg-info text-white">
@@ -36,8 +33,8 @@
         @foreach ($siswa as $sw)
         <tr>
           <td>{{ $loop->iteration }}</td>
-          <td>{{ $sw->nama_depan }}</td>
-          <td>{{ $sw->nama_belakang }}</td>
+          <td><a href="{{ route('siswa.show', $sw->id) }}">{{ $sw->nama_depan }}</a></td>
+          <td><a href="">{{ $sw->nama_belakang }}</a></td>
           <td>{{ $sw->jenis_kelamin }}</td>
           <td>{{ $sw->agama }}</td>
           <td>{{ $sw->alamat }}</td>
@@ -72,7 +69,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="{{ route('siswa.store') }}" method="POST">
+        <form action="{{ route('siswa.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
 
           <div class="form-group">
@@ -106,6 +103,11 @@
           <div class="form-group">
             <label for="alamat">Alamat</label>
             <textarea name="alamat" class="form-control" id="alamat" rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="gambar">Gambar</label>
+            <input type="file" name="gambar" class="form-control" id="gambar">
           </div>
 
 

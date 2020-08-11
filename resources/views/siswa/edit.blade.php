@@ -13,7 +13,7 @@
 <div class="row">
   <div class="col-md-6">
     <h1>Edit Data Siswa</h1>
-    <form action="{{ route('siswa.update', $siswa->id) }}" method="POST">
+    <form action="{{ route('siswa.update', $siswa->id) }}" method="POST" enctype="multipart/form-data">
       @csrf
       @method('PATCH')
 
@@ -49,6 +49,11 @@
       <div class="form-group">
         <label for="alamat">Alamat</label>
         <textarea name="alamat" class="form-control" id="alamat" rows="3">{{ $siswa->alamat }}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="gambar">Gambar</label>
+        <input type="file" name="gambar" class="form-control" id="gambar">
       </div>
 
       <button type="submit" class="btn btn-primary btn-sm">Update</button>
