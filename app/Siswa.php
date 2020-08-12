@@ -18,4 +18,11 @@ class Siswa extends Model
 
         return asset("storage/images/$this->gambar");
     }
+
+    public function mapel()
+    {
+        return $this->belongsToMany(Mapel::class)->withPivot('nilai');
+    }
 }
+
+// karena kolom nilai add di table pivot mapel_siswa, maka kita harus panggil dengan withPivot('nama_kolom')

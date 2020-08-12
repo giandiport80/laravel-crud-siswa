@@ -17,15 +17,21 @@
       @csrf
       @method('PATCH')
 
-      <div class="form-group">
+      <div class="form-group @error('nama_depan') has-error @enderror">
         <label for="nama_depan">Nama Depan</label>
         <input type="text" name="nama_depan" value="{{ $siswa->nama_depan }}" class="form-control" id="nama_depan">
+        @error('nama_depan')
+        <small class="text-danger">{{ $message }}</small>
+        @enderror
       </div>
 
-      <div class="form-group">
+      <div class="form-group @error('nama_belakang') has-error @enderror">
         <label for="nama_belakang">Nama Belakang</label>
         <input type="text" name="nama_belakang" value="{{ $siswa->nama_belakang }}" class="form-control"
           id="nama_belakang">
+        @error('nama_belakang')
+        <small class="text-danger">{{ $message }}</small>
+        @enderror
       </div>
 
       <div class="form-group">
@@ -46,14 +52,21 @@
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="form-group @error('alamat') has-error @enderror">
         <label for="alamat">Alamat</label>
         <textarea name="alamat" class="form-control" id="alamat" rows="3">{{ $siswa->alamat }}</textarea>
+        @error('alamat')
+        <small class="text-danger">{{ $message }}</small>
+        @enderror
       </div>
 
-      <div class="form-group">
+      <div class="form-group @error('gambar') has-error @enderror">
         <label for="gambar">Gambar</label>
         <input type="file" name="gambar" class="form-control" id="gambar">
+        <small class="text-info">Max size of image 512 KB</small><br>
+        @error('gambar')
+        <small class="text-danger">{{ $message }}</small>
+        @enderror
       </div>
 
       <button type="submit" class="btn btn-primary btn-sm">Update</button>

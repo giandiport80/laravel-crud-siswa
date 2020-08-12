@@ -28,7 +28,8 @@ class SiswaController extends Controller
             'jenis_kelamin' => 'required',
             'agama' => 'required',
             'alamat' => 'required|min:3',
-            'email' => 'required|email'
+            'email' => 'required|email|unique:users',
+            'gambar' => 'image|between:0,512|mimes:jpeg,png,jpg',
         ]);
 
         // buat user baru dari siswa ini
@@ -78,7 +79,8 @@ class SiswaController extends Controller
             'nama_belakang' => 'required|min:3',
             'jenis_kelamin' => 'required',
             'agama' => 'required',
-            'alamat' => 'required|min:3'
+            'alamat' => 'required|min:3',
+            'gambar' => 'image|between:0,512|mimes:jpeg,png,jpg'
         ]);
 
         $siswa = Siswa::findOrFail($id);

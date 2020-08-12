@@ -17,7 +17,7 @@
         <div class="profile-stat">
           <div class="row">
             <div class="col-md-4 stat-item">
-              45 <span>Projects</span>
+              {{ $siswa->mapel->count() }} <span>Mata Pelajaran</span>
             </div>
             <div class="col-md-4 stat-item">
               15 <span>Awards</span>
@@ -48,41 +48,35 @@
     <!-- END LEFT COLUMN -->
     <!-- RIGHT COLUMN -->
     <div class="profile-right">
-      <!-- TABBED CONTENT -->
-      <div class="custom-tabs-line tabs-line-bottom left-aligned">
-        <ul class="nav" role="tablist">
-          <li class="active"><a href="#tab-bottom-left1" role="tab" data-toggle="tab">Aktivitas Terakhir</a></li>
-        </ul>
-      </div>
-      <div class="tab-content">
-        <div class="tab-pane fade in active" id="tab-bottom-left1">
-          <ul class="list-unstyled activity-timeline">
-            <li>
-              <i class="fa fa-comment activity-icon"></i>
-              <p>Commented on post <a href="#">Prototyping</a> <span class="timestamp">2 minutes ago</span>
-              </p>
-            </li>
-            <li>
-              <i class="fa fa-cloud-upload activity-icon"></i>
-              <p>Uploaded new file <a href="#">Proposal.docx</a> to project <a href="#">New Year Campaign</a>
-                <span class="timestamp">7 hours ago</span></p>
-            </li>
-            <li>
-              <i class="fa fa-plus activity-icon"></i>
-              <p>Added <a href="#">Martin</a> and <a href="#">3 others colleagues</a> to project repository
-                <span class="timestamp">Yesterday</span></p>
-            </li>
-            <li>
-              <i class="fa fa-check activity-icon"></i>
-              <p>Finished 80% of all <a href="#">assigned tasks</a> <span class="timestamp">1 day ago</span>
-              </p>
-            </li>
-          </ul>
-          <div class="margin-top-30 text-center"><a href="#" class="btn btn-default">See all activity</a>
-          </div>
+      <div class="panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">Mata Pelajaran</h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Kode</th>
+                <th>Nama</th>
+                <th>Semester</th>
+                <th>Nilai</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($siswa->mapel as $mapel)
+              <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $mapel->kode }}</td>
+                <td>{{ $mapel->nama }}</td>
+                <td>{{ $mapel->semester }}</td>
+                <td>{{ $mapel->pivot->nilai }}</td> {{-- nilai ada di table pivot --}}
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
         </div>
       </div>
-      <!-- END TABBED CONTENT -->
     </div>
     <!-- END RIGHT COLUMN -->
   </div>
