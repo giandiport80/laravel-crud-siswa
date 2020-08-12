@@ -21,8 +21,10 @@ class Siswa extends Model
 
     public function mapel()
     {
-        return $this->belongsToMany(Mapel::class)->withPivot('nilai');
+        return $this->belongsToMany(Mapel::class)->withPivot('nilai')->withTimestamps();
     }
 }
 
 // karena kolom nilai add di table pivot mapel_siswa, maka kita harus panggil dengan withPivot('nama_kolom')
+
+// withTimestaps(), untuk mengisi kolom created_at dan updated_at pada table pivot

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mapel;
 use App\Siswa;
 use App\User;
 use Illuminate\Http\Request;
@@ -63,7 +64,8 @@ class SiswaController extends Controller
     public function show($id)
     {
         $siswa = Siswa::findOrFail($id);
-        return view('siswa.profile', compact('siswa'));
+        $mataPelajaran = Mapel::all();
+        return view('siswa.profile', compact('siswa', 'mataPelajaran'));
     }
 
     public function edit($id)
@@ -96,8 +98,6 @@ class SiswaController extends Controller
             $siswa->save();
         }
 
-
-        
         return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil diubah!');
     }
 
@@ -113,4 +113,20 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil dihapus!');
     }
+
+    public function addNilai(Request $request, $id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        if($siswa->mapel()->where('mapel_id', $request->mapel)->exists()){
+            return redirect()->route('siswa.show', $siswa->id)->with('gagal', 'Data nilai sudah ada!');
+        }
+
+        $siswa->mapel()->attach($request->mapel, ['nilai' => $request->nilai]);
+
+        return redirect()->route('siswa.show', $siswa->id)->with('pesan', 'Data nilai berhasil dimasukkan!');
+    }
 }
+
+//$siswa->mapel()->attach($request->mapel, ['nilai' => $request->nilai])
+//  ? ['nilai' => $request->nilai]
+// kita menambahkan pada kolom nilai pada table pivot dari mapel_siswa

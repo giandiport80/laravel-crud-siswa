@@ -48,6 +48,20 @@
     <!-- END LEFT COLUMN -->
     <!-- RIGHT COLUMN -->
     <div class="profile-right">
+      @if (session('gagal'))
+      <div class="alert alert-danger">
+        <strong>{{ session('gagal') }}</strong>
+      </div>
+      @endif
+      @if (session('pesan'))
+      <div class="alert alert-success">
+        <strong>{{ session('pesan') }}</strong>
+      </div>
+      @endif
+      <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#tambahNilai"
+        title="Tambah data Siswa">
+        + Tambah Nilai
+      </button>
       <div class="panel">
         <div class="panel-heading">
           <h3 class="panel-title">Mata Pelajaran</h3>
@@ -81,4 +95,46 @@
     <!-- END RIGHT COLUMN -->
   </div>
 </div>
+
+{{-- modal --}}
+<div class="modal fade" id="tambahNilai" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('siswa.addNilai', $siswa->id) }}" method="POST" enctype="multipart/form-data">
+          @csrf
+
+          <div class="form-group">
+            <label for="nama">Mata Pelajaran</label>
+            <select name="mapel" class="form-control" id="nama">
+              @foreach ($mataPelajaran as $mp)
+              <option value="{{ $mp->id }}">{{ $mp->nama }}</option>
+              @endforeach
+            </select>
+          </div>
+
+          <div class="form-group @error('nilai') has-error @enderror">
+            <label for="nilai">Nilai</label>
+            <input type="text" name="nilai" value="{{ old('nama_depan') }}" class="form-control" id="nama_depan">
+            @error('nilai')
+            <small class="text-danger">{{ $message }}</small>
+            @enderror
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 @endsection

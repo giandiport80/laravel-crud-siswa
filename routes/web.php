@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::get('/siswa', 'SiswaController@index')->name('siswa.index');
     Route::post('/siswa', 'SiswaController@store')->name('siswa.store');
     Route::get('/siswa/{siswa}', 'SiswaController@show')->name('siswa.show');
+    Route::post('/siswa/{siswa}/addnilai', 'SiswaController@addNilai')->name('siswa.addNilai');
     Route::get('/siswa/{siswa}/edit', 'SiswaController@edit')->name('siswa.edit');
     Route::patch('/siswa/{siswa}', 'SiswaController@update')->name('siswa.update');
     Route::delete('/siswa/{siswa}', 'SiswaController@destroy')->name('siswa.destroy');

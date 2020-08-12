@@ -13,6 +13,11 @@
     </div>
   </div>
   <div class="panel-body">
+    @if (session('gagal'))
+    <div class="alert alert-success">
+      <strong>{{ session('gagal') }}</strong>
+    </div>
+    @endif
     @if (session('pesan'))
     <div class="alert alert-success">
       <strong>{{ session('pesan') }}</strong>
