@@ -32,6 +32,7 @@
         <th>Jenis Kelamin</th>
         <th>Agama</th>
         <th>Alamat</th>
+        <th>Rata-rata nilai</th>
         <th>Aksi</th>
       </thead>
       <tbody>
@@ -43,6 +44,7 @@
           <td>{{ $sw->jenis_kelamin }}</td>
           <td>{{ $sw->agama }}</td>
           <td>{{ $sw->alamat }}</td>
+          <td>{{ $sw->average() }}</td>
           <td>
             <form action="{{ route('siswa.destroy', $sw->id) }}" method="POST">
               @csrf

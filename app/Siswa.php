@@ -10,6 +10,7 @@ class Siswa extends Model
 
     protected $fillable = ['nama_depan', 'nama_belakang', 'jenis_kelamin', 'agama', 'alamat', 'gambar', 'user_id'];
 
+    // custom function
     public function getGambar()
     {
         if (!$this->gambar) {
@@ -23,6 +24,31 @@ class Siswa extends Model
     {
         return $this->belongsToMany(Mapel::class)->withPivot('nilai')->withTimestamps();
     }
+
+    // contoh membuat custom function
+    public function test()
+    {
+        return 'test';
+    }
+
+    // menghitung nilai rata2 siswa
+    public function average()
+    { 
+        $total = 0;
+        $hitung = 0;
+        foreach($this->mapel as $mapel){
+            $total += $mapel->pivot->nilai;
+            $hitung++; // setiap adala pengulangan, hitung ditambah 1
+        }
+
+        return round($total / $hitung);
+    }
+
+    public function namaLengkap()
+    {
+        return $this->nama_depan . ' ' . $this->nama_belakang;
+    }
+
 }
 
 // karena kolom nilai add di table pivot mapel_siswa, maka kita harus panggil dengan withPivot('nama_kolom')
