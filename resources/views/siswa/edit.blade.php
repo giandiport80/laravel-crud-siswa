@@ -2,14 +2,6 @@
 @section('title', 'Edit Data Siswa')
 
 @section('content')
-@if (session('pesan'))
-<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-  <strong>{{ session('pesan') }}</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-@endif
 <div class="row">
   <div class="col-md-6">
     <h1>Edit Data Siswa</h1>

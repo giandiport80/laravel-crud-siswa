@@ -1,6 +1,11 @@
 @extends('templates.main')
 @section('title', 'Profile Siswa')
 
+@push('styles')
+<link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/css/bootstrap-editable.css"
+  rel="stylesheet" />
+@endpush
+
 @section('content')
 <div class="panel panel-profile">
   <div class="clearfix">
@@ -75,6 +80,7 @@
                 <th>Nama</th>
                 <th>Semester</th>
                 <th>Nilai</th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -84,7 +90,15 @@
                 <td>{{ $mapel->kode }}</td>
                 <td>{{ $mapel->nama }}</td>
                 <td>{{ $mapel->semester }}</td>
-                <td>{{ $mapel->pivot->nilai }}</td> {{-- nilai ada di table pivot --}}
+                <td><a href="#" class="nilai" data-type="text" data-pk="{{ $mapel->id }}" data-url="/api/siswa/{{ $siswa->id }}/editnilai" data-title="Masukkan Nilai">{{ $mapel->pivot->nilai }}</a></td>
+                <td>
+                  <form action="/siswa/{{ $siswa->id }}/{{ $mapel->id }}/deletenilai" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" onclick="return confirm('yakin hapus?')" class="btn btn-danger btn-sm"
+                      title="Hapus data siswa">Hapus</button>
+                  </form>
+                </td>
               </tr>
               @endforeach
             </tbody>
@@ -143,9 +157,19 @@
 @endsection
 
 @push('scripts')
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script>
-    Highcharts.chart('chartNilai', {
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js">
+</script>
+<script>
+  // ketika aplikasi selesai diload, ambil semua id, aplikasikan editable()
+  // id hanya menyeleksi satu element, bisa kita ganti dengan class agar bisa menyeleksi semua element
+  $(document).ready(function() {
+  $('.nilai').editable();
+  });
+</script>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+  Highcharts.chart('chartNilai', {
     chart: {
     type: 'column'
     },
@@ -184,6 +208,6 @@
     
     }]
     });
-  </script>
-  
+</script>
+
 @endpush

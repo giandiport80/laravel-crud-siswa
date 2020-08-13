@@ -140,6 +140,14 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.show', $siswa->id)->with('pesan', 'Data nilai berhasil dimasukkan!');
     }
+
+    public function deleteNilai($idsiswa, $idmapel)
+    {
+        $siswa = Siswa::findOrFail($idsiswa);
+        $siswa->mapel()->detach($idmapel);
+        
+        return redirect()->back()->with('pesan', 'Data Nilai Berhasil dihapus!');
+    }
 }
 
 //$siswa->mapel()->attach($request->mapel, ['nilai' => $request->nilai])

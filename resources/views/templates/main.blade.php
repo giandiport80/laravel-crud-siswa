@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{ asset('admin/assets/vendor/font-awesome/css/font-awesome.min.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/vendor/linearicons/style.css') }}">
   <link rel="stylesheet" href="{{ asset('admin/assets/vendor/chartist/css/chartist-custom.css') }}">
+  @stack('styles')
   <!-- MAIN CSS -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/main.css') }}">
   <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
