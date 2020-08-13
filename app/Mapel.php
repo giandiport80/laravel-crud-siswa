@@ -13,6 +13,12 @@ class Mapel extends Model
     {
         return $this->belongsToMany(Siswa::class)->withPivot('nilai');
     }
+
+    // banyak mapel dimiliki oleh satu guru
+    public function guru()
+    {
+        return $this->belongsTo(Guru::class);
+    }
 }
 
 // karena kolom nilai add di table pivot mapel_siswa, maka kita harus panggil dengan withPivot('nama_kolom')

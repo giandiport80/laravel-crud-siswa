@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::patch('/siswa/{siswa}', 'SiswaController@update')->name('siswa.update');
     Route::delete('/siswa/{siswa}', 'SiswaController@destroy')->name('siswa.destroy');
     Route::delete('siswa/{idsiswa}/{idmapel}/deletenilai', 'SiswaController@deleteNilai');
+    Route::get('/guru/{guru}', 'GuruController@show')->name('guru.show');
 });
 
 
