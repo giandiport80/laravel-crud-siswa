@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="{{ asset('admin/assets/css/main.css') }}">
   <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
   <link rel="stylesheet" href="{{ asset('admin/assets/css/demo.css') }}">
+  {{-- toastr --}}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
   <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
   <!-- ICONS -->

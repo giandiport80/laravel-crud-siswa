@@ -41,7 +41,7 @@ class Siswa extends Model
             $hitung++; // setiap adala pengulangan, hitung ditambah 1
         }
 
-        return round($total / $hitung);
+        return round($total / ($hitung ? $hitung : 1));
     }
 
     public function namaLengkap()

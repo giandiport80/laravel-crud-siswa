@@ -65,9 +65,9 @@ class SiswaController extends Controller
         return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil ditambahkan!');
     }
 
-    public function show($id)
+    public function show(Siswa $siswa)
     {
-        $siswa = Siswa::findOrFail($id);
+        // $siswa = Siswa::findOrFail($id);
         $mataPelajaran = Mapel::all();
 
         // menyiapkan data untuk chart
@@ -87,13 +87,13 @@ class SiswaController extends Controller
         return view('siswa.profile', compact('siswa', 'mataPelajaran', 'categories', 'data'));
     }
 
-    public function edit($id)
+    public function edit(Siswa $siswa)
     {
-        $siswa = Siswa::findOrFail($id);
+        // $siswa = Siswa::findOrFail($id);
         return view('siswa.edit', compact('siswa'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Siswa $siswa)
     {
         $request->validate([
             'nama_depan' => 'required|min:3',
@@ -104,7 +104,7 @@ class SiswaController extends Controller
             'gambar' => 'image|between:0,512|mimes:jpeg,png,jpg'
         ]);
 
-        $siswa = Siswa::findOrFail($id);
+        // $siswa = Siswa::findOrFail($id);
         $siswa->update($request->all());
 
         if ($request->file('gambar')) {
@@ -120,22 +120,22 @@ class SiswaController extends Controller
         return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil diubah!');
     }
 
-    public function destroy($id)
+    public function destroy(Siswa $siswa)
     {
-        $siswa = Siswa::findOrFail($id);
+        // $siswa = Siswa::findOrFail($id);
 
         if($siswa->gambar){
             Storage::delete("public/images/$siswa->gambar");
         }
 
-        Siswa::destroy($id);
+        Siswa::destroy($siswa->id);
 
         return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil dihapus!');
     }
 
-    public function addNilai(Request $request, $id)
+    public function addNilai(Request $request, Siswa $siswa)
     {
-        $siswa = Siswa::findOrFail($id);
+        // $siswa = Siswa::findOrFail($id);
         if($siswa->mapel()->where('mapel_id', $request->mapel)->exists()){
             return redirect()->route('siswa.show', $siswa->id)->with('gagal', 'Data nilai sudah ada!');
         }
@@ -145,9 +145,9 @@ class SiswaController extends Controller
         return redirect()->route('siswa.show', $siswa->id)->with('pesan', 'Data nilai berhasil dimasukkan!');
     }
 
-    public function deleteNilai($idsiswa, $idmapel)
+    public function deleteNilai(Siswa $siswa, $idmapel)
     {
-        $siswa = Siswa::findOrFail($idsiswa);
+        // $siswa = Siswa::findOrFail($idsiswa);
         $siswa->mapel()->detach($idmapel);
         
         return redirect()->back()->with('pesan', 'Data Nilai Berhasil dihapus!');
@@ -170,6 +170,13 @@ class SiswaController extends Controller
         $siswa = Siswa::all();
         $pdf = PDF::loadView('export.siswapdf', ['siswa' => $siswa]);
         return $pdf->download('siswa.pdf');
+    }
+
+    public function delete(Siswa $siswa)
+    {
+        $siswa->delete($siswa);
+
+        return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil dihapus!');
     }
 }
 

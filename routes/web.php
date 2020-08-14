@@ -30,11 +30,14 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::get('/siswa/export', 'SiswaController@export')->name('siswa.export');
     Route::get('/siswa/pdf', 'SiswaController@pdf')->name('siswa.pdf');
     Route::get('/siswa/{siswa}', 'SiswaController@show')->name('siswa.show');
+    // ! method hapus swal
+    Route::get('/siswa/{siswa}/delete', 'SiswaController@delete')->name('siswa.delete');
+
     Route::post('/siswa/{siswa}/addnilai', 'SiswaController@addNilai')->name('siswa.addNilai');
     Route::get('/siswa/{siswa}/edit', 'SiswaController@edit')->name('siswa.edit');
     Route::patch('/siswa/{siswa}', 'SiswaController@update')->name('siswa.update');
     Route::delete('/siswa/{siswa}', 'SiswaController@destroy')->name('siswa.destroy');
-    Route::delete('siswa/{idsiswa}/{idmapel}/deletenilai', 'SiswaController@deleteNilai');
+    Route::delete('siswa/{siswa}/{idmapel}/deletenilai', 'SiswaController@deleteNilai');
     Route::get('/guru/{guru}', 'GuruController@show')->name('guru.show');
 });
 

@@ -53,8 +53,9 @@
               @method('DELETE')
 
               <a href="/siswa/{{ $sw->id }}/edit" class="btn btn-success btn-sm" title="Edit data siswa">Edit</a>
+              <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{ $sw->id }}" title="Edit data siswa">Hapus</a>
               <button type="submit" onclick="return confirm('yakin hapus {{ $sw->nama_depan }}?')"
-                class="btn btn-danger btn-sm" title="Hapus data siswa">Hapus</button>
+                class="btn btn-info btn-sm" title="Hapus data siswa">Hapus</button>
             </form>
           </td>
         </tr>
@@ -151,3 +152,27 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+{{-- sweet alert --}}
+  <script>
+    $('.delete').click(function(){
+      const siswaId = $(this).attr('siswa-id');
+
+      Swal.fire({
+      title: 'Apakah Kamu Yakin?',
+      text: `Hapus data siswa dengan id = ${siswaId}?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.value) {
+          window.location = `/siswa/${siswaId}/delete`
+        }
+      })
+
+    })
+  </script>
+@endpush
