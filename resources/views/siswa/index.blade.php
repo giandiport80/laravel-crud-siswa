@@ -7,6 +7,8 @@
   <div class="panel-heading">
     <h3 class="panel-title">Data Siswa</h3>
     <div class="right">
+      <a href="{{ route('siswa.export') }}" class="btn btn-success btn-sm">Export Excel</a>
+      <a href="{{ route('siswa.pdf') }}" class="btn btn-danger btn-sm">Export PDF</a>
       <button type="button" class="" data-toggle="modal" data-target="#exampleModal" title="Tambah data Siswa">
         <i class="lnr lnr-plus-circle"></i>
       </button>

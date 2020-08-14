@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SiswaExport;
 use App\Mapel;
 use App\Siswa;
 use App\User;
+use Barryvdh\DomPDF\Facade as PDF; // ini udah dimodifikasi
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaController extends Controller
 {
@@ -147,6 +151,25 @@ class SiswaController extends Controller
         $siswa->mapel()->detach($idmapel);
         
         return redirect()->back()->with('pesan', 'Data Nilai Berhasil dihapus!');
+    }
+
+    // * function export excel
+    public function export()
+    {
+        return Excel::download(new SiswaExport, 'Siswa.xlsx');
+    }
+
+    // * function untuk export pdf
+    public function pdf()
+    {
+        // ? bisa pake yang ini
+        // $pdf = App::make('dompdf.wrapper');
+        // $pdf->loadHTML('<h1>Test</h1>');
+        // return $pdf->stream();
+
+        $siswa = Siswa::all();
+        $pdf = PDF::loadView('export.siswapdf', ['siswa' => $siswa]);
+        return $pdf->download('siswa.pdf');
     }
 }
 
