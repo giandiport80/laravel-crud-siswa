@@ -7,7 +7,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Data Siswa</h3>
     <div class="right">
-      <a href="" class="btn btn-primary btn-sm">+ Add Post</a>
+      <a href="{{ route('post.create') }}" class="btn btn-primary btn-sm">+ Add Post</a>
     </div>
   </div>
   <div class="panel-body">

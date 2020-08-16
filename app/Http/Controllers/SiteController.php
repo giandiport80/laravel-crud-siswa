@@ -12,7 +12,8 @@ class SiteController extends Controller
 {
     public function index()
     {
-        return view('sites.home');
+        $posts = Post::all();
+        return view('sites.home', compact('posts'));
     }
 
     public function about()

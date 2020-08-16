@@ -42,8 +42,13 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::delete('siswa/{siswa}/{idmapel}/deletenilai', 'SiswaController@deleteNilai');
     Route::get('/guru/{guru}', 'GuruController@show')->name('guru.show');
     Route::get('/post', 'PostController@index')->name('post.index');
+    Route::get('/post/create', 'PostController@create')->name('post.create');
+    Route::post('/post', 'PostController@store')->name('post.store');
 });
 
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 
 // yang mengakses route group ini hanya role admin dan siswa
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
