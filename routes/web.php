@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::delete('/siswa/{siswa}', 'SiswaController@destroy')->name('siswa.destroy');
     Route::delete('siswa/{siswa}/{idmapel}/deletenilai', 'SiswaController@deleteNilai');
     Route::get('/guru/{guru}', 'GuruController@show')->name('guru.show');
+    Route::get('/post', 'PostController@index')->name('post.index');
 });
 
 
@@ -48,6 +49,12 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 });
+
+// cara lain penamaan routing
+Route::get('/{slug}', [
+    'uses' => 'SiteController@singlePost',
+    'as' => 'site.singlePost'
+]);
 
 
 // langkah buat middleware

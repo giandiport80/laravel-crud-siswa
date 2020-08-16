@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Post;
 use App\Siswa;
 use App\User;
 use Illuminate\Http\Request;
@@ -52,5 +53,11 @@ class SiteController extends Controller
         Siswa::create($request->all());
 
         return redirect()->route('site.index')->with('pesan', 'Kamu Berhasil Mendaftar!');
+    }
+
+    public function singlePost($slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+        return view('sites.single_post', compact('post'));
     }
 }
