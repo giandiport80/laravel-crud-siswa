@@ -26,11 +26,9 @@
     </div>
     @endif
 
-    <table class="table table-bordered table-hover">
+    <table class="table table-bordered table-hover" id="datatable">
       <thead class="text-center bg-info text-white">
-        <th>No</th>
-        <th>Nama Depan</th>
-        <th>Nama Belakang</th>
+        <th>Nama Lengkap</th>
         <th>Jenis Kelamin</th>
         <th>Agama</th>
         <th>Alamat</th>
@@ -38,28 +36,7 @@
         <th>Aksi</th>
       </thead>
       <tbody>
-        @foreach ($siswa as $sw)
-        <tr>
-          <td>{{ $loop->iteration }}</td>
-          <td><a href="{{ route('siswa.show', $sw->id) }}">{{ $sw->nama_depan }}</a></td>
-          <td><a href="">{{ $sw->nama_belakang }}</a></td>
-          <td>{{ $sw->jenis_kelamin }}</td>
-          <td>{{ $sw->agama }}</td>
-          <td>{{ $sw->alamat }}</td>
-          <td>{{ $sw->average() }}</td>
-          <td>
-            <form action="{{ route('siswa.destroy', $sw->id) }}" method="POST">
-              @csrf
-              @method('DELETE')
-
-              <a href="/siswa/{{ $sw->id }}/edit" class="btn btn-success btn-sm" title="Edit data siswa">Edit</a>
-              <a href="#" class="btn btn-danger btn-sm delete" siswa-id="{{ $sw->id }}" title="Edit data siswa">Hapus</a>
-              <button type="submit" onclick="return confirm('yakin hapus {{ $sw->nama_depan }}?')"
-                class="btn btn-info btn-sm" title="Hapus data siswa">Hapus</button>
-            </form>
-          </td>
-        </tr>
-        @endforeach
+        {{-- yajra datatable --}}
       </tbody>
     </table>
   </div>
@@ -154,25 +131,45 @@
 @endsection
 
 @push('scripts')
-{{-- sweet alert --}}
-  <script>
-    $('.delete').click(function(){
-      const siswaId = $(this).attr('siswa-id');
 
-      Swal.fire({
-      title: 'Apakah Kamu Yakin?',
-      text: `Hapus data siswa dengan id = ${siswaId}?`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.value) {
-          window.location = `/siswa/${siswaId}/delete`
-        }
-      })
+<script>
+$(document).ready(function () {
+  // datatable
+  $('#datatable').DataTable({
+    processing: true,
+    serverside: true,
+    ajax: "{{ route('siswa.ajax') }}",
+    columns: [
+      {data: 'nama_lengkap', name: 'nama_lengkap'},
+      {data: 'jenis_kelamin', name: 'jenis_kelamin'},
+      {data: 'agama', name: 'agama'},
+      {data: 'alamat', name: 'alamat'},
+      {data: 'average', name: 'average'},
+      {data: 'aksi', name: 'aksi'},
+    ]
+  })
 
+  // sweet alert
+  $('.delete').click(function(){
+    const siswaId = $(this).attr('siswa-id');
+
+    Swal.fire({
+    title: 'Apakah Kamu Yakin?',
+    text: `Hapus data siswa dengan id = ${siswaId}?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        window.location = `/siswa/${siswaId}/delete`
+      }
     })
+
+  })
+
+});
+
   </script>
 @endpush

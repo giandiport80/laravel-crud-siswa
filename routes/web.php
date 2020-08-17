@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
 });
 
+Route::get('/ajaxsiswa', 'SiswaController@ajax')->name('siswa.ajax');
+
 // cara lain penamaan routing
 Route::get('/{slug}', [
     'uses' => 'SiteController@singlePost',

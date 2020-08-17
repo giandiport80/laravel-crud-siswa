@@ -41,7 +41,8 @@ class PostController extends Controller
         Post::create([
             'title' => $request->title,
             'content' => $request->content,
-            'user_id' => auth()->user()->id, // atau Auth::id();
+            'user_id' => Auth::id(),
+            'slug' => Str::slug($request->title),
             'tumbnail' => $request->tumbnail,
         ]);
 

@@ -12,17 +12,40 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class SiswaController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->cari) {
-            $siswa = Siswa::where('nama_depan', 'LIKE', '%' . $request->cari . '%')->get();
+            $siswa = Siswa::where('nama_depan', 'LIKE', '%' . $request->cari . '%')->paginate(10);
         } else {
             $siswa = Siswa::all();
         }
         return view('siswa.index', compact('siswa'));
+    }
+
+    // yajra
+    public function ajax()
+    {
+        // ambil semua data siswa
+        $siswa = Siswa::select('siswa.*');
+
+        return DataTables::eloquent($siswa)
+                ->addColumn('nama_lengkap' , function($sw){
+                    return $sw->nama_depan . ' ' . $sw->nama_belakang;
+                })
+                ->addColumn('average', function($sw){
+                    return $sw->average(); // method di model siswa
+                })
+                ->addColumn('aksi', function($sw){
+                    return '<a href="" class="btn btn-success btn-sm">edit</a>' . '<a href="" class="btn btn-danger btn-sm">Hapus</a>';
+                })
+                ->rawColumns(['nama_lengkap', 'average', 'aksi'])
+                ->toJson();
+
+                // jika sudah buat addColumn, jangan lupa tambahkan di rawColumns
     }
 
     public function store(Request $request)

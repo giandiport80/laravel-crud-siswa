@@ -34,14 +34,18 @@ class Siswa extends Model
     // menghitung nilai rata2 siswa
     public function average()
     { 
-        $total = 0;
-        $hitung = 0;
-        foreach($this->mapel as $mapel){
-            $total += $mapel->pivot->nilai;
-            $hitung++; // setiap adala pengulangan, hitung ditambah 1
+        if($this->mapel->isNotEmpty()){
+            $total = 0;
+            $hitung = 0;
+            foreach($this->mapel as $mapel){
+                $total += $mapel->pivot->nilai;
+                $hitung++; // setiap adala pengulangan, hitung ditambah 1
+            }
+    
+            return round($total / $hitung);
         }
 
-        return round($total / ($hitung ? $hitung : 1));
+        return 0;
     }
 
     public function namaLengkap()
