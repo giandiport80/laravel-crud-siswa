@@ -7,6 +7,9 @@
   <div class="panel-heading">
     <h3 class="panel-title">Data Siswa</h3>
     <div class="right">
+      <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#importExcel">
+        Import Excel
+      </a>
       <a href="{{ route('siswa.export') }}" class="btn btn-success btn-sm">Export Excel</a>
       <a href="{{ route('siswa.pdf') }}" class="btn btn-danger btn-sm">Export PDF</a>
       <button type="button" class="" data-toggle="modal" data-target="#exampleModal" title="Tambah data Siswa">
@@ -123,6 +126,31 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- modal  --}}
+<div class="modal fade" id="importExcel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('siswa.import') }}" method="POST" enctype="multipart/form-data">
+          @csrf
+
+          <input type="file" name="data_siswa">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-sm btn-primary">Submit</button>
         </form>
       </div>
     </div>

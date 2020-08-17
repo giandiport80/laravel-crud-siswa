@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin']], function () {
     Route::get('/siswa', 'SiswaController@index')->name('siswa.index');
     Route::post('/siswa', 'SiswaController@store')->name('siswa.store');
     Route::get('/siswa/export', 'SiswaController@export')->name('siswa.export');
+    Route::post('/siswa/import', 'SiswaController@import')->name('siswa.import');
     Route::get('/siswa/pdf', 'SiswaController@pdf')->name('siswa.pdf');
     Route::get('/siswa/{siswa}', 'SiswaController@show')->name('siswa.show');
     // ! method hapus swal

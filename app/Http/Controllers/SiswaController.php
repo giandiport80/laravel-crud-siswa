@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\SiswaExport;
+use App\Imports\SiswaImport;
 use App\Mapel;
 use App\Siswa;
 use App\User;
@@ -194,6 +195,15 @@ class SiswaController extends Controller
         $siswa = Siswa::all();
         $pdf = PDF::loadView('export.siswapdf', ['siswa' => $siswa]);
         return $pdf->download('siswa.pdf');
+    }
+
+    // function import pdf
+    public function import(Request $request)
+    {
+        // dd($request->all());
+        Excel::import(new SiswaImport, $request->file('data_siswa'));
+
+        return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil Diimport!');
     }
 
     public function delete(Siswa $siswa)
