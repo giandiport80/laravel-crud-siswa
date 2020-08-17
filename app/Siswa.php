@@ -12,7 +12,7 @@ class Siswa extends Model
 
     // custom function
     public function getGambar()
-    {
+{
         if (!$this->gambar) {
             return asset("storage/images/default.png");
         }

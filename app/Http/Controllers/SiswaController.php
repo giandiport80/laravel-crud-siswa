@@ -9,6 +9,7 @@ use App\User;
 use Barryvdh\DomPDF\Facade as PDF; // ini udah dimodifikasi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -40,7 +41,7 @@ class SiswaController extends Controller
                     return $sw->average(); // method di model siswa
                 })
                 ->addColumn('aksi', function($sw){
-                    return '<a href="" class="btn btn-success btn-sm">edit</a>' . '<a href="" class="btn btn-danger btn-sm">Hapus</a>';
+                    return '<a href="/siswa/' . $sw->id . '" class="btn btn-success btn-sm">edit</a>' . '<a href="" class="btn btn-danger btn-sm">Hapus</a>';
                 })
                 ->rawColumns(['nama_lengkap', 'average', 'aksi'])
                 ->toJson();
@@ -200,6 +201,12 @@ class SiswaController extends Controller
         $siswa->delete($siswa);
 
         return redirect()->route('siswa.index')->with('pesan', 'Data Siswa berhasil dihapus!');
+    }
+
+    public function myProfile()
+    {
+        $siswa = Auth::user()->siswa; 
+        return view('siswa.my-profile', compact('siswa'));
     }
 }
 
