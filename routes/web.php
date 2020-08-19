@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,8 +15,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'SiteController@index')->name('site.index');
+
+// contoh kirim email
+Route::get('/send-mail', function(){
+    Mail::raw('Halo Siswa Baru', function ($message) { // halo siswa baru adalah judul
+        $message->to('programming@gmail.com', 'Nurwana'); // dari
+        $message->subject('Pendaftaran Siswa');
+    });
+});
+
 Route::get('/about', 'SiteController@about')->name('site.about');
 Route::get('/register', 'SiteController@register')->name('site.register');
+
+// register sambil mengirim email 
 Route::post('/register', 'SiteController@registerStore')->name('site.registerStore');
 
 // Route::get('/', 'AuthController@login')->name('login');

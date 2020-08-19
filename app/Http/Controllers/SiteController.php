@@ -6,6 +6,7 @@ use App\Post;
 use App\Siswa;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class SiteController extends Controller
@@ -52,6 +53,13 @@ class SiteController extends Controller
         $request->request->add(['user_id' => $user->id]);
 
         Siswa::create($request->all());
+
+        // *kirim email
+        // se($siswa) kita ngasih atu kalo ini juga akan menggunakan $siswa
+        Mail::raw('Selamat datang ' . $user->name , function ($message) use($user) {
+            $message->to($user->email, $user->name);
+            $message->subject('Selamat Anda Sudah terdaftar disekolah kami');
+        });
 
         return redirect()->route('site.index')->with('pesan', 'Kamu Berhasil Mendaftar!');
     }
