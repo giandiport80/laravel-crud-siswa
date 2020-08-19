@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotifPendaftaranSiswa;
 use App\Post;
 use App\Siswa;
 use App\User;
@@ -55,11 +56,7 @@ class SiteController extends Controller
         Siswa::create($request->all());
 
         // *kirim email
-        // se($siswa) kita ngasih atu kalo ini juga akan menggunakan $siswa
-        Mail::raw('Selamat datang ' . $user->name , function ($message) use($user) {
-            $message->to($user->email, $user->name);
-            $message->subject('Selamat Anda Sudah terdaftar disekolah kami');
-        });
+        Mail::to($user->email)->send(new NotifPendaftaranSiswa);
 
         return redirect()->route('site.index')->with('pesan', 'Kamu Berhasil Mendaftar!');
     }
