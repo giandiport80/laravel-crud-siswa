@@ -12,7 +12,7 @@ class Siswa extends Model
 
     // custom function
     public function getGambar()
-{
+    {
         if (!$this->gambar) {
             return asset("storage/images/default.png");
         }
@@ -51,6 +51,11 @@ class Siswa extends Model
     public function namaLengkap()
     {
         return $this->nama_depan . ' ' . $this->nama_belakang;
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->withDefault(['gambar' => 'default.jpg']);
     }
 
 }
