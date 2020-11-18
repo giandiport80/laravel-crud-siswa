@@ -27,7 +27,7 @@ Route::get('/send-mail', function(){
 Route::get('/about', 'SiteController@about')->name('site.about');
 Route::get('/register', 'SiteController@register')->name('site.register');
 
-// register sambil mengirim email 
+// register sambil mengirim email
 Route::post('/register', 'SiteController@registerStore')->name('site.registerStore');
 
 // Route::get('/', 'AuthController@login')->name('login');
@@ -66,6 +66,7 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 // yang mengakses route group ini hanya role admin dan siswa
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+    Route::get('forum', 'ForumController@index')->name('forum.index');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:siswa']], function () {
