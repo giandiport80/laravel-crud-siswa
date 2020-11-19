@@ -49,8 +49,8 @@
 					<div class="col-lg-6 col-sm-6 col-4 header-top-right no-padding">
 						<a href="tel:+953 012 3654 896"><span class="lnr lnr-phone-handset"></span> <span class="text">+953 012 3654
 								896</span></a>
-						<a href="mailto:support@colorlib.com"><span class="lnr lnr-envelope"></span> <span
-								class="text">support@colorlib.com</span></a>
+						<a href="https://sman11kabtng.sch.id"><span class="lnr lnr-envelope"></span> <span
+								class="text">sman11kabtng.shc.id</span></a>
 					</div>
 				</div>
 			</div>

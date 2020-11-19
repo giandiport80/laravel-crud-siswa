@@ -47,34 +47,35 @@
 
                 <h3>Komentar</h3>
                 <ul class="list-unstyled activity-list">
+                    @forelse($forum->komentar()->where('parent', 0)->latest()->get() as $komentar)
                     <li>
-                        <img src="assets/img/user1.png" alt="Avatar" class="img-circle pull-left avatar">
-                        <p><a href="#">Michael</a> has achieved 80% of his completed tasks <span class="timestamp">20
-                                minutes ago</span>
+                        <img src="{{ $komentar->user->siswa->getGambar() }}" alt="Avatar"
+                            class="img-circle pull-left avatar">
+                        <p><a href="#">{{ $komentar->user->siswa->namaLengkap() }}</a> <br>
+                            {{ $komentar->konten }}<span
+                                class="timestamp">{{ $komentar->created_at->diffForHumans() }}</span>
                         </p>
-                    </li>
-                    <li>
-                        <img src="assets/img/user2.png" alt="Avatar" class="img-circle pull-left avatar">
-                        <p><a href="#">Daniel</a> has been added as a team member to project <a href="#">System
-                                Update</a> <span class="timestamp">Yesterday</span></p>
-                    </li>
-                    <li>
-                        <img src="assets/img/user3.png" alt="Avatar" class="img-circle pull-left avatar">
-                        <p><a href="#">Martha</a> created a new heatmap view <a href="#">Landing Page</a> <span
-                                class="timestamp">2 days
-                                ago</span></p>
-                    </li>
-                    <li>
-                        <img src="assets/img/user4.png" alt="Avatar" class="img-circle pull-left avatar">
-                        <p><a href="#">Jane</a> has completed all of the tasks <span class="timestamp">2 days ago</span>
+
+                        <form action="" method="post" style="padding-left: 3.5em">
+                            @csrf
+
+                            <input type="hidden" name="forum_id" value="{{ $forum->id }}">
+                            <input type="hidden" name="parent" value="{{ $komentar->id }}">
+
+                            <input type="text" name="konten" class="form-control" style="margin-bottom: 1rem">
+                            <button type="submit" class="btn btn-primary btn-xs">Kirim</button>
+                        </form>
+                        <br>
+                        @foreach ($komentar->childs()->latest()->get() as $child)
+                        <p style="margin-bottom: 1rem"><a href="#">{{ $child->user->siswa->namaLengkap() }}</a> <br>
+                            {{ $child->konten }}<span
+                                class="timestamp">{{ $child->created_at->diffForHumans() }}</span>
                         </p>
+                        @endforeach
                     </li>
-                    <li>
-                        <img src="assets/img/user5.png" alt="Avatar" class="img-circle pull-left avatar">
-                        <p><a href="#">Jason</a> started a discussion about <a href="#">Weekly Meeting</a> <span
-                                class="timestamp">3
-                                days ago</span></p>
-                    </li>
+                    @empty
+                    <li></li>
+                    @endforelse
                 </ul>
             </div>
         </div>
@@ -138,3 +139,13 @@
 
 </script>
 @endpush
+
+
+
+
+{{--
+
+    parent nya 0 untuk komentar utama
+
+
+    --}}

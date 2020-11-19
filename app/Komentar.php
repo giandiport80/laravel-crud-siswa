@@ -19,4 +19,24 @@ class Komentar extends Model
     {
         return $this->belongsTo(Forum::class);
     }
+
+    public function childs()
+    {
+        return $this->hasMany(Komentar::class, 'parent');
+    }
 }
+
+
+
+
+
+
+
+
+
+
+// h: DOKUMENTASI
+// child()
+// berelasi ke table komentari sendiri
+// setiap komentar bisa punya child komentar
+// parent adalah nama field nya

@@ -33,7 +33,7 @@ class Siswa extends Model
 
     // menghitung nilai rata2 siswa
     public function average()
-    { 
+    {
         if($this->mapel->isNotEmpty()){
             $total = 0;
             $hitung = 0;
@@ -41,7 +41,7 @@ class Siswa extends Model
                 $total += $mapel->pivot->nilai;
                 $hitung++; // setiap adala pengulangan, hitung ditambah 1
             }
-    
+
             return round($total / $hitung);
         }
 
