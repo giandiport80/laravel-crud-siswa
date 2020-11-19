@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Forum;
+use App\Komentar;
 use Illuminate\Http\Request;
 
 class ForumController extends Controller
@@ -20,12 +21,23 @@ class ForumController extends Controller
 
         Forum::create($request->all());
 
-        return redirect()->back()->with('sukses', 'Forum berhasil ditambahkan!');
+        return redirect()->back()->with('pesan', 'Forum berhasil ditambahkan!');
     }
 
     public function show(Forum $forum)
     {
         return view('forum.show', compact('forum'));
+    }
+
+    public function postKomentar(Request $request)
+    {
+        $request->validate([
+            'konten' => 'required'
+        ]);
+
+        $request->request->add(['user_id' => auth()->user()->id]);
+        Komentar::create($request->all());
+        return redirect()->back()->with('pesan', 'Komentar berhasil ditambahkan!');
     }
 }
 

@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
     Route::get('forum', 'ForumController@index')->name('forum.index');
     Route::post('forum', 'ForumController@store')->name('forum.store');
     Route::get('forum/{forum:slug}', 'ForumController@show')->name('forum.show');
+    Route::post('forum/{forum:slug}', 'ForumController@postKomentar')->name('forum.postKomentar');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:siswa']], function () {

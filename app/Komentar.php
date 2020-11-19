@@ -8,6 +8,8 @@ class Komentar extends Model
 {
     protected $table = 'komentar';
 
+    protected $guarded = ['id'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
