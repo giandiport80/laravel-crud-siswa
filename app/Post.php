@@ -12,10 +12,10 @@ class Post extends Model
     // secara default, ini sudah bisa tanpa harus gunakan ini
     // kita bisa akses method format('d M Y')
     // protected $dates = ['created_at'];
-    
+
     // mass asignment terjadi kalo kita pakai method ::create()
     protected $fillable = ['title', 'content', 'slug', 'user_id', 'tumbnail'];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);

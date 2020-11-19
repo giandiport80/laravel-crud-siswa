@@ -67,6 +67,8 @@ Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']
 Route::group(['middleware' => ['auth', 'checkRole:admin,siswa']], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('forum', 'ForumController@index')->name('forum.index');
+    Route::post('forum', 'ForumController@store')->name('forum.store');
+    Route::get('forum/{forum:slug}', 'ForumController@show')->name('forum.show');
 });
 
 Route::group(['middleware' => ['auth', 'checkRole:siswa']], function () {
